@@ -56,22 +56,12 @@ local function copy(t)
 end
 
 local function initialise()
-    local expiry = os.clock() + loadedSettings.fade_after
-
     for i = 1,5 do
         local font = copy(loadedSettings.font)
         font.position_x = screenCenter.x + loadedSettings.x_offset
         font.position_y = screenCenter.y - loadedSettings.y_offset + (i - 1) * font.font_height * loadedSettings.font_spacing
         messages[i] = { fontobj = gdi:create_object(font), expiry = nil }
-        messages[i].fontobj:set_font_color(loadedSettings.font_color_priority)
     end
-
-    messages[1].fontobj:set_text('Messages will be displayed here')
-    messages[1].expiry = expiry
-    messages[2].fontobj:set_text('Type /rwarnings for list of commands')
-    messages[2].expiry = expiry
-    messages[5].fontobj:set_text('Have Fun!')
-    messages[5].expiry = expiry
 end
 
 local function updateFade(obj)
@@ -175,8 +165,27 @@ ashita.events.register('command', 'rwarnings_command', function (e)
 
     e.blocked = true
 
-    if (#args == 2 and args[2]:any('pos')) then
+    if (#args == 4 and args[2]:any('pos')) then
+        local x = tonumber(args[3])
+        local y = tonumber(args[4])
+        if (x and y) then
+            loadedSettings.x_offset = x
+            loadedSettings.y_offset = y
+            for i = 1,5 do
+                local position_x = screenCenter.x + x
+                local position_y = screenCenter.y - y + (i - 1) * loadedSettings.font.font_height * loadedSettings.font_spacing
+                messages[i].fontobj:set_position_x(position_x)
+                messages[i].fontobj:set_position_y(position_y)
+            end
 
+            local expiry = os.clock() + loadedSettings.fade_after
+            messages[1].fontobj:set_font_color(loadedSettings.font_color_priority)
+            messages[1].fontobj:set_text('Messages will be displayed here')
+            messages[1].expiry = expiry
+            messages[5].fontobj:set_font_color(loadedSettings.font_color_priority)
+            messages[5].fontobj:set_text('Have Fun!')
+            messages[5].expiry = expiry
+        end
         return
     end
 
@@ -195,4 +204,5 @@ ashita.events.register('command', 'rwarnings_command', function (e)
     print(chat.header('rWarnings') .. chat.message('Note: Edit your list of priority actions in priority.lua'))
     print(chat.header('rWarnings') .. chat.message('/rwarnings font - Toggle the colour of priority actions'))
     print(chat.header('rWarnings') .. chat.message('/rwarnings prio - Toggle displaying priority messages only'))
+    print(chat.header('rWarnings') .. chat.message('/rwarnings pos [x_offset] [y_offset] - Reposition UI text (default is 0 50)'))
 end)
