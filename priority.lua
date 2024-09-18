@@ -1,0 +1,26 @@
+local warnings_priority = T{
+    'Throat Stab',
+    'Colossal Blow',
+    'Pile Pitch',
+    'Firaga III',
+    'Blizzaga III',
+    'Aeroga III',
+    'Stonega III',
+    'Thundaga III',
+    'Waterga III',
+    'Firaga IV',
+    'Blizzaga IV',
+    'Aeroga IV',
+    'Stonega IV',
+    'Thundaga IV',
+    'Waterga IV',
+    'Freeze II',
+    'Tornado II',
+    'Quake II',
+    'Burst II',
+    'Flood II',
+    'Flare II',
+    'Nuclear Waste',
+}
+
+return warnings_priority;
