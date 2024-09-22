@@ -121,7 +121,7 @@ ashita.events.register('packet_in', 'rwarnings_packet_in', function (e)
                 end
             end
 
-            if (actionMessage ~= 0 and monsterName ~= nil and actionName ~= nil) then
+            if (actionMessage ~= 0 and monsterName ~= nil and actionName ~= nil and actionName ~= '') then
                 local isPrio = priority:contains(actionName)
                 if (isPrio or not loadedSettings.display_priority_only) then
                     for i = 1,5 do

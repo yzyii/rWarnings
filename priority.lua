@@ -21,6 +21,14 @@ local warnings_priority = T{
     'Flood II',
     'Flare II',
     'Nuclear Waste',
+    'Meteor',
+    'Horrid Roar',
+    'Absolute Terror',
+    'Tortoise Song',
+    'Thunderbolt',
+    'Ice Spikes',
+    'Sleepga',
+    'Sleepga II',
 }
 
 return warnings_priority;
