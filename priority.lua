@@ -20,7 +20,6 @@ local warnings_priority = T{
     'Burst II',
     'Flood II',
     'Flare II',
-    'Nuclear Waste',
     'Meteor',
     'Horrid Roar',
     'Absolute Terror',
