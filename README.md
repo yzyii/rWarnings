@@ -10,4 +10,4 @@ priority.lua contains spells or abilities that are highlighted a different colou
 
 /rwarnings prio can be used if you wish to display ONLY spell and abilities in priority.lua.
 
-Note that server customizations may render this addon to not work for custom mobs or abilities. A SimpleLog fork that adds this functionality that may work is located at: https://github.com/yzyii/SimpleLog
+Note that server customizations may render this addon to not work for custom mobs or abilities.
