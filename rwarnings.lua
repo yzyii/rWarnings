@@ -47,9 +47,9 @@ local messages = {
     [5] = nil,
 }
 
-this_chunk = nil;
-this_chunk_sequences = T{ };
-last_chunk_sequences = T{ };
+local this_chunk = nil;
+local this_chunk_sequences = T{ };
+local last_chunk_sequences = T{ };
 local function is_duplicate(e)
     if (this_chunk ~= e.chunk_data) then
         this_chunk = e.chunk_data;
