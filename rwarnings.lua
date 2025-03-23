@@ -47,6 +47,31 @@ local messages = {
     [5] = nil,
 }
 
+local this_chunk = nil;
+local this_chunk_sequences = T{ };
+local last_chunk_sequences = T{ };
+local function is_duplicate(e)
+    if (this_chunk ~= e.chunk_data) then
+        this_chunk = e.chunk_data;
+        last_chunk_sequences = this_chunk_sequences;
+        this_chunk_sequences = T{ };
+    end
+
+    this_sequence = struct.unpack("H", e.data, 2 + 1);
+
+    if (this_chunk_sequences:contains(this_sequence)) then
+        return true;
+    end
+
+    this_chunk_sequences:append(this_sequence);
+
+    if (last_chunk_sequences:contains(this_sequence)) then
+        return true;
+    end
+
+    return false;
+end
+
 local function copy(t)
   local t2 = {}
   for k,v in pairs(t) do
@@ -92,6 +117,10 @@ end)
 
 ashita.events.register('packet_in', 'rwarnings_packet_in', function (e)
     if (e.id == 0x028) then
+        if (is_duplicate(e)) then
+            return;
+        end
+            
         local actionPacket = ParseActionPacket(e)
 
         if (IsMonster(actionPacket.UserIndex) and (actionPacket.Type == 7 or actionPacket.Type == 8)) then
